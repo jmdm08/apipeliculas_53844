@@ -2,17 +2,17 @@
 const mongoClient = require('mongodb').MongoClient;
 require('dotenv').config();
 
-let conexion;
+let database;
 
 const conectar = function(){
     return new Promise(function(resolve, reject){
-        if(conexion){
+        if(database){
             resolve();
         }
         else{
             mongoClient.connect(process.env.MONGODB_URI, {useNewUrlParser: true})
                 .then(function(client){
-                    conexion = client.db(process.env.MONGODB_DB);
+                    database = client.db(process.env.MONGODB_DB);
                     resolve();
                 })
                 .catch(function(error){
@@ -23,7 +23,7 @@ const conectar = function(){
 }
 
 const obtenerConexion = function(){
-    return conexion;
+    return database;
 }
 
 module.exports = {conectar, obtenerConexion}

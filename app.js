@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const controladorPeliculas = require('./api/peliculas/controller');
 const controladorUsuarios = require('./api/usuarios/controller');
-const conexion = require('./database/connection');
+const database = require('./database/connection');
 require('dotenv').config();
 
 /*
@@ -27,7 +27,7 @@ app.use("/api/usuarios", controladorUsuarios);
 /*
     CONFIGURAR EL PUERTO  QUE VA A MONITOREAR EL API.
 */
-conexion.conectar()
+database.conectar()
     .then(function(){
         app.listen(port, function(){
             console.log("API Ejecutándose en el puerto " + port);
