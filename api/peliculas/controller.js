@@ -46,15 +46,3 @@ controladorPeliculas.get("/obtenerPeliculasPorTitulo/:titulo", async function(re
 });
 
 module.exports = controladorPeliculas;
-
-/*
-    CONTROLADOR -> DEFINIR LA RUTA DE ENTRADA/SALIDA AL SISTEMA
-        -> CAPTURAR LOS DATOS INICIALES
-        -> ENVÍA LOS DATOS FINALES.
-    
-    SERVICIO
-        -> TOMA LOS DATOS INICIALES LOS TRANSFORMA
-
-    MODELO
-        -> GESTIONAR LA BASE DE DATOS.
-*/
