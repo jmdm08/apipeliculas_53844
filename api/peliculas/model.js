@@ -50,6 +50,41 @@ function obtenerPorTitulo(titulo){
         });
 }
 
+function crearUna(datos) {
+    let db = basedatos.obtenerConexion();
+
+    return db.collection("peliculas").insertOne(datos)
+        .then(function(resConsulta){
+            return resConsulta;
+        })
+        .catch(function(error){
+            console.log(error);
+        })
+}
+
+function actualizarUna(id, datos){
+    let db = basedatos.obtenerConexion();
+    /*
+        datos -> {
+            "titulo": XXX,
+            "generos": ["A", "B"]
+        }
+    */
+    return db.collection("peliculas").updateOne(
+            {"_id":objectId(id)},
+            {"$set": datos}
+        )
+        .then(function(resultado){
+            console.log(resultado);
+            return resultado;
+        })
+        .catch(function(error){
+            console.log(error);
+        })
+}
+
 module.exports.obtenerTodas = obtenerTodas;
 module.exports.obtenerUna = obtenerUna;
 module.exports.obtenerPorTitulo = obtenerPorTitulo;
+module.exports.crearUna = crearUna;
+module.exports.actualizarUna = actualizarUna;

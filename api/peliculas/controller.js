@@ -19,6 +19,9 @@ const servicioPeliculas = require('./service');
     DELETE -> Eliminar una película.
 */
 
+/**
+ * BUSCAR TODAS LAS PELÍCULAS
+ */
 controladorPeliculas.get("/obtenerPeliculas", async function(req, res){
     let peliculas = await servicioPeliculas.obtenerPeliculas();
     res.send({
@@ -27,6 +30,9 @@ controladorPeliculas.get("/obtenerPeliculas", async function(req, res){
     });
 });
 
+/**
+ * BUSCAR UNA PELÍCULA POR ID
+ */
 controladorPeliculas.get("/obtenerPelicula/:id", async function(req, res){
     let id = req.params.id;
     let pelicula = await servicioPeliculas.obtenerPelicula(id);
@@ -36,6 +42,9 @@ controladorPeliculas.get("/obtenerPelicula/:id", async function(req, res){
     });
 });
 
+/**
+ * BUSCAR PELÍCULAS POR TÍTULO
+ */
 controladorPeliculas.get("/obtenerPeliculasPorTitulo/:titulo", async function(req, res){
     let titulo = req.params.titulo;
     let peliculas = await servicioPeliculas.obtenerPeliculasPorTitulo(titulo);
@@ -44,5 +53,31 @@ controladorPeliculas.get("/obtenerPeliculasPorTitulo/:titulo", async function(re
         "data": peliculas
     });
 });
+
+/**
+ * CREA UNA NUEVA PELÍCULA
+ */
+controladorPeliculas.post("/crearPelicula", async function(req, res){
+    let datos = req.body;
+    let pelicula = await servicioPeliculas.crearPelicula(datos);
+    res.send({
+        "mensaje": pelicula.mensaje,
+        "resultado" : pelicula.datos
+    });
+});
+
+/** 
+ * ACTUALIZAR UNA PELÍCULA
+*/
+controladorPeliculas.put("/actualizarPelicula/:id", async function(req, res){
+    let id = req.params.id;
+    let datos = req.body;
+    let resultado = await servicioPeliculas.actualizarPelicula(id,datos);
+    res.send(resultado)
+});
+
+/**
+ * 
+ */
 
 module.exports = controladorPeliculas;
