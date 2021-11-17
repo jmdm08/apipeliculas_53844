@@ -83,8 +83,21 @@ function actualizarUna(id, datos){
         })
 }
 
+function eliminarUna(id){
+    let db = basedatos.obtenerConexion();
+
+    return db.collection("peliculas").deleteOne({"_id": objectId(id)})
+        .then(function(resultado){
+           return resultado; 
+        })
+        .catch(function(error){
+            console.log(error);
+        })
+}
+
 module.exports.obtenerTodas = obtenerTodas;
 module.exports.obtenerUna = obtenerUna;
 module.exports.obtenerPorTitulo = obtenerPorTitulo;
 module.exports.crearUna = crearUna;
 module.exports.actualizarUna = actualizarUna;
+module.exports.eliminarUna = eliminarUna;

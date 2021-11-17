@@ -77,7 +77,12 @@ controladorPeliculas.put("/actualizarPelicula/:id", async function(req, res){
 });
 
 /**
- * 
+ * ELIMINAR UNA PELÍCULA
  */
+controladorPeliculas.delete("/eliminarPelicula", async function(req, res){
+    let id = req.query.id;
+    let resultado = await servicioPeliculas.eliminarPelicula(id);
+    res.send(resultado);
+})
 
 module.exports = controladorPeliculas;

@@ -1,14 +1,36 @@
 const express = require('express');
 const controladorUsuarios = express.Router();
+const servicioUsuarios = require('./service');
 
 /*
     GET -> Iniciar Sesión.
-    GET -> Obtener un usuario por el id.
+    POST -> Crear usuario.
 */
 
-controladorUsuarios.get("/iniciarSesion", function(req, res){
-    let datos = req.query; 
-    res.send("Los dos del usuario son: " + datos.usuario + " " + datos.contrasena)
+/**
+ * INICIAR SESIÓN.
+ */
+controladorUsuarios.get("/iniciarSesion", async function(req, res){
+    let datosUsuario = req.query; 
+    let resultado = await servicioUsuarios.iniciarSesion(datosUsuario);
+    res.send(resultado);
 });
+
+/*
+    datosUsuario = {
+        "nombre": xxxx,
+        "usuario": xxxx,
+        "clave": xxxx,
+        "roles": ["A", "B"]
+    }
+*/
+/**
+ * CREAR NUEVO USUARIO
+ */
+controladorUsuarios.post("/crearUsuario", async function(req, res){
+    let datosUsuario = req.body;
+    let resultado = await servicioUsuarios.crearUsuario(datosUsuario);
+    res.send(resultado);
+})
 
 module.exports = controladorUsuarios;
