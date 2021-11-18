@@ -27,6 +27,28 @@ async function obtenerPeliculasPorTitulo(titulo){
     return peliculas;
 }
 
+async function crearPelicula(datos){
+
+    let resultado = {};
+    if(datos && Object.keys(datos).length > 0){
+       let resConsulta = await modeloPeliculas.crearUna(datos);
+            if(resConsulta && resConsulta.acknowledged){
+                resultado.mensaje= "Pelicula Creada correctamente"
+                resultado.datos = resConsulta.insertedId
+         }
+         else{
+             resultado.mensaje = "error al crear la pélicula",
+             resultado.datos = datos
+         }
+    }
+    else{
+        resultado.mensaje = "No se puede crear la pelicula"
+        resultado.datos =   "No hay datos"
+    }
+    return resultado;
+}
+
 module.exports.obtenerPeliculas = obtenerPeliculas;
 module.exports.obtenerPelicula = obtenerPelicula;
 module.exports.obtenerPeliculasPorTitulo = obtenerPeliculasPorTitulo;
+module.exports.crearPelicula = crearPelicula;

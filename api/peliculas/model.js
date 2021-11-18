@@ -50,6 +50,21 @@ function obtenerPorTitulo(titulo){
         });
 }
 
+function crearUna(datos){
+    let db = basedatos.obtenerConexion();
+
+    return db.collection("peliculas").insertOne(datos)
+       .then(function(resConsulta){
+           console.log(resConsulta);
+       })
+       .catch(function(error){
+          console.log(error);  
+       })
+
+
+}
+
 module.exports.obtenerTodas = obtenerTodas;
 module.exports.obtenerUna = obtenerUna;
 module.exports.obtenerPorTitulo = obtenerPorTitulo;
+module.exports.crearUna = crearUna;

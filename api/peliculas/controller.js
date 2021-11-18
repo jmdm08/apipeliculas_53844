@@ -45,6 +45,18 @@ controladorPeliculas.get("/obtenerPeliculasPorTitulo/:titulo", async function(re
     });
 });
 
+/* el metodo post recibe la info a través del body 
+*/
+controladorPeliculas.post("/crearPelicula", async function(req, res){
+
+    let datos = req.body;
+    let pelicula = await servicioPeliculas.crearPelicula(datos);
+    res.send({
+        "mensaje": pelicula.mensaje,
+        "resultado": pelicula.datos    
+    });
+});
+
 module.exports = controladorPeliculas;
 
 /*
