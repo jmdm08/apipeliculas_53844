@@ -4,6 +4,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const cors = require('cors');
+const helmet = require('helmet');
+const compression = require('compression');
 const controladorPeliculas = require('./api/peliculas/controller');
 const controladorUsuarios = require('./api/usuarios/controller');
 const database = require('./database/connection');
@@ -14,6 +17,9 @@ require('dotenv').config();
 */
 const app = express();
 const port = process.env.PORT;
+app.use(cors());
+app.use(helmet());
+app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(morgan(process.env.MORGAN_MODE));
@@ -35,4 +41,4 @@ database.conectar()
     })
     .catch(function(error){
         console.log(error);
-    });   
+    });

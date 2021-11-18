@@ -1,6 +1,7 @@
 const express = require('express');
 const controladorPeliculas = express.Router();
 const servicioPeliculas = require('./service');
+const rutaProtegida = require('../auth/jwt').validarToken;
 
 /**
     CONTROLADOR
@@ -57,7 +58,7 @@ controladorPeliculas.get("/obtenerPeliculasPorTitulo/:titulo", async function(re
 /**
  * CREA UNA NUEVA PELÍCULA
  */
-controladorPeliculas.post("/crearPelicula", async function(req, res){
+controladorPeliculas.post("/crearPelicula", rutaProtegida, async function(req, res){
     let datos = req.body;
     let pelicula = await servicioPeliculas.crearPelicula(datos);
     res.send({
@@ -69,7 +70,7 @@ controladorPeliculas.post("/crearPelicula", async function(req, res){
 /** 
  * ACTUALIZAR UNA PELÍCULA
 */
-controladorPeliculas.put("/actualizarPelicula/:id", async function(req, res){
+controladorPeliculas.put("/actualizarPelicula/:id", rutaProtegida, async function(req, res){
     let id = req.params.id;
     let datos = req.body;
     let resultado = await servicioPeliculas.actualizarPelicula(id,datos);
@@ -79,7 +80,7 @@ controladorPeliculas.put("/actualizarPelicula/:id", async function(req, res){
 /**
  * ELIMINAR UNA PELÍCULA
  */
-controladorPeliculas.delete("/eliminarPelicula", async function(req, res){
+controladorPeliculas.delete("/eliminarPelicula", rutaProtegida, async function(req, res){
     let id = req.query.id;
     let resultado = await servicioPeliculas.eliminarPelicula(id);
     res.send(resultado);
