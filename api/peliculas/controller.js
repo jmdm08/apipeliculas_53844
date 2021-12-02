@@ -23,7 +23,7 @@ const rutaProtegida = require('../auth/jwt').validarToken;
 /**
  * BUSCAR TODAS LAS PELÍCULAS
  */
-controladorPeliculas.get("/obtenerPeliculas", async function(req, res){
+controladorPeliculas.get("/obtenerPeliculas", rutaProtegida, async function(req, res){
     let peliculas = await servicioPeliculas.obtenerPeliculas();
     res.send({
         "mensaje": "Listado de películas",
