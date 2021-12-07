@@ -17,7 +17,13 @@ function obtenerTodas(){
     // db.peliculas
     // db.peliculas.find({});
 
-    return db.collection("peliculas").find({}).toArray()
+    /*
+        TODO: PAGINACIÓN
+            -> limit()
+            -> skip()
+    */
+
+    return db.collection("peliculas").find({}).limit(100).toArray()
         .then(function(peliculas){
             return peliculas;
         })

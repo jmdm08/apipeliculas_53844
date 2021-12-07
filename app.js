@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
+const path = require('path');
 const controladorPeliculas = require('./api/peliculas/controller');
 const controladorUsuarios = require('./api/usuarios/controller');
 const database = require('./database/connection');
@@ -29,6 +30,17 @@ app.use(morgan(process.env.MORGAN_MODE));
 */
 app.use("/api/peliculas", controladorPeliculas);
 app.use("/api/usuarios", controladorUsuarios);
+
+/*
+    CONFIGURAR LA CARPETA PÚBLICA.
+*/
+// /apipelicuas_53844/public = __dirname
+const publicPath = path.resolve(__dirname, 'public');
+app.use(express.static(publicPath));
+
+app.get("/", function(req, res){
+    res.sendFile( path.join(__dirname+'./index.html'));
+});
 
 /*
     CONFIGURAR EL PUERTO  QUE VA A MONITOREAR EL API.
